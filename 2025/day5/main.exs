@@ -42,7 +42,6 @@ defmodule Day5 do
   end
 
   defp merge_step(current_range, merged) do
-    IO.inspect merged
     [current_range | merged]
   end
 
@@ -50,7 +49,7 @@ defmodule Day5 do
     ranges 
       |> Enum.sort(&(elem(&1, 0) <= elem(&2, 0)))
       |> Enum.reduce([], &merge_step/2)
-      # |> Enum.reverse()
+      |> Enum.reverse()
   end
 end
 
@@ -63,8 +62,6 @@ part1 = ids
  |> Enum.reduce(0, fn id, acc -> Day5.is_fresh(ranges, id) + acc end)
 
 merged_ranges = ranges |> Enum.map(&Day5.parse_range/1) |> Day5.merge_ranges()
-
-IO.inspect merged_ranges
 
 part2 = merged_ranges |> Enum.reduce(0, &(elem(&1,1) - elem(&1,0) + &2 + 1))
 
